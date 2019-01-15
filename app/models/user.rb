@@ -2,5 +2,7 @@
 
 class User < ApplicationRecord
   include Authentication
-  has_many :examples
+  has_many :user_groups
+  has_many :groups, through: :user_groups
+  has_many :moods, through: :user_groups
 end
