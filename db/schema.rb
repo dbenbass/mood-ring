@@ -42,7 +42,6 @@ ActiveRecord::Schema.define(version: 2019_01_14_215559) do
   create_table "user_groups", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "group_id"
-    t.datetime "date"
     t.bigint "mood_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

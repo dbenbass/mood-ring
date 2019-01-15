@@ -1,3 +1,4 @@
 class Mood < ApplicationRecord
-  belongs_to :user_group
+  has_many :groups, through: :user_groups
+  has_many :user_groups
 end

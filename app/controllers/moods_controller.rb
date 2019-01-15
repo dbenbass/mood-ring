@@ -15,7 +15,7 @@ class MoodsController < ApplicationController
 
   # POST /moods
   def create
-    @mood = Mood.new(mood_params)
+    @mood = current_user.moods.build(mood_params)
 
     if @mood.save
       render json: @mood, status: :created, location: @mood
@@ -41,7 +41,7 @@ class MoodsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_mood
-      @mood = Mood.find(params[:id])
+      @mood = current_user.mood.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.

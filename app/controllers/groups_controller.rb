@@ -1,4 +1,4 @@
-class GroupsController < ApplicationController
+class GroupsController < OpenReadController
   before_action :set_group, only: [:show, :update, :destroy]
 
   # GET /groups
@@ -10,12 +10,13 @@ class GroupsController < ApplicationController
 
   # GET /groups/1
   def show
+    @group = Group.find(params[:id])
     render json: @group
   end
 
   # POST /groups
   def create
-    @group = Group.new(group_params)
+    @group = current_user.groups.build(group_params)
 
     if @group.save
       render json: @group, status: :created, location: @group
@@ -41,7 +42,7 @@ class GroupsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_group
-      @group = Group.find(params[:id])
+      @group = current_user.groups.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
