@@ -3,7 +3,11 @@ class GroupSerializer < ActiveModel::Serializer
   :moods, :averagemood
 
   def averagemood
-    Mood.average(:level)
+    # self.moods
+     self.object.moods.average(:level)
+    # Mood.average(:level)
+    # puts "printing moods"
+    # puts :moods
    end
 end
 
