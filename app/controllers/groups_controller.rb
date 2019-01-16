@@ -11,6 +11,7 @@ class GroupsController < OpenReadController
   # GET /groups/1
   def show
     @group = Group.find(params[:id])
+    # @group.moods
     render json: @group
   end
 
