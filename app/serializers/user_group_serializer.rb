@@ -1,5 +1,5 @@
 class UserGroupSerializer < ActiveModel::Serializer
-  attributes :id, :date
+  attributes :id
   has_one :user
   has_one :group
   has_one :mood
