@@ -1,6 +1,5 @@
 class GroupsController < OpenReadController
-  before_action :set_group, only: [:show, :update, :destroy]
-
+  before_action :set_group, only: %i[update destroy]
   # GET /groups
   def index
     @groups = Group.all

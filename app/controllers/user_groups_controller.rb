@@ -1,4 +1,4 @@
-class UserGroupsController < ApplicationController
+class UserGroupsController < OpenReadController
   before_action :set_user_group, only: [:show, :update, :destroy]
 
   # GET /user_groups
