@@ -1,5 +1,6 @@
-class GroupsController < OpenReadController
+class GroupsController < ProtectedController
   before_action :set_group, only: %i[update destroy]
+
   # GET /groups
   def index
     @groups = Group.all
@@ -36,6 +37,7 @@ class GroupsController < OpenReadController
 
   # DELETE /groups/1
   def destroy
+    binding.pry
     @group.destroy
   end
 

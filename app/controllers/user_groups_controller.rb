@@ -1,5 +1,5 @@
-class UserGroupsController < OpenReadController
-  before_action :set_user_group, only: [:show, :update, :destroy]
+class UserGroupsController < ProtectedController
+  before_action :set_user_group, only: [:show, :update]
 
   # GET /user_groups
   def index
@@ -35,13 +35,14 @@ class UserGroupsController < OpenReadController
 
   # DELETE /user_groups/1
   def destroy
+    @user_group = current_user.user_groups.find(params[:group_id])
     @user_group.destroy
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user_group
-      @user_group = UserGroup.find(params[:id])
+      @user_group = current_user.user_groups.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
