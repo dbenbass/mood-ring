@@ -37,7 +37,6 @@ class GroupsController < ProtectedController
 
   # DELETE /groups/1
   def destroy
-    binding.pry
     @group.destroy
   end
 
