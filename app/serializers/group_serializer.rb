@@ -7,6 +7,10 @@ class GroupSerializer < ActiveModel::Serializer
     # Mood.average(:level)
     # puts "printing moods"
     # puts :moods
+    end
+  def numberofparticipants
+    self.object.moods.count(:level)
+    # Counts number of moods submitted, hence, number of participants in group.
    end
 end
 

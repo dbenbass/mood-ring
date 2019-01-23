@@ -5,5 +5,4 @@ class UserGroup < ApplicationRecord
 
   validates_uniqueness_of :group_id, scope: :user_id,
                           message: "can only submit one mood"
-
 end

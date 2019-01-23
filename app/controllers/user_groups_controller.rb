@@ -1,5 +1,5 @@
 class UserGroupsController < ProtectedController
-  before_action :set_user_group, only: [:show, :update]
+  before_action :set_user_group, only: %i[show update]
 
   # GET /user_groups
   def index
