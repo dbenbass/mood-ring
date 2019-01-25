@@ -39,32 +39,32 @@ Once I had my backend (relatively) solidified, I ran into many issues regarding 
 
 <b>user</b>
 <br>
-  has_many :user_groups
-  has_many :groups, through: :user_groups
-  has_many :moods, through: :user_groups
-<br><br>
+  has_many :user_groups<br>
+  has_many :groups, through: :user_groups<br>
+  has_many :moods, through: :user_groups<br>
+<br>
 
 
 <b>group</b>
 <br>
-  has_many :user_groups, dependent: :destroy
-  has_many :users, through: :user_groups
-  has_many :moods, through: :user_groups
+  has_many :user_groups, dependent: :destroy<br>
+  has_many :users, through: :user_groups<br>
+  has_many :moods, through: :user_groups<br><br>
 
 
 
-**user group**
+<b>user group</b>
+<br>
+  belongs_to :user<br>
+  belongs_to :group<br>
+  belongs_to :mood<br><br>
 
-  belongs_to :user
-  belongs_to :group
-  belongs_to :mood
 
 
-
-**mood**
-
-  has_many :groups, through: :user_groups
-  has_many :user_groups
+<b>mood</b>
+<br>
+  has_many :groups, through: :user_groups<br>
+  has_many :user_groups<br><br>
 
 _______
 
