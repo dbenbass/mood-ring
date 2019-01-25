@@ -1,349 +1,147 @@
-Rails[![General Assembly Logo](https://camo.githubusercontent.com/1a91b05b8f4d44b5bbfb83abac2b0996d8e26c92/687474703a2f2f692e696d6775722e636f6d2f6b6538555354712e706e67)](https://generalassemb.ly/education/web-development-immersive)
+<b>mood-ring Server</b>
 
-# rails-api-template
+_______
 
-A template for starting projects with `rails-api`. Includes authentication.
 
-At the beginning of each cohort, update the versions in [`Gemfile`](Gemfile).
+<b>mood-ring is an app that allows users to assess the average mood of a group of people.</b>
 
-## Prerequisites
+See the client end repository <a href="https://github.com/dbenbass/mood-ring-client"> here</a>.
 
--   [rails-api-examples-walkthrough](https://git.generalassemb.ly/ga-wdi-boston/rails-api-examples-walkthrough)
+Here are the links to the <a href="https://dbenbass.github.io/mood-ring-client"> deployed front end</a>, and the <a href="https://rocky-bastion-73525.herokuapp.com/"> deployed back end </a>
 
-## Dependencies
+_______
 
-Install with `bundle install`.
+<b>The gist</b>
 
--   [`rails-api`](https://github.com/rails-api/rails-api)
--   [`rails`](https://github.com/rails/rails)
--   [`active_model_serializers`](https://github.com/rails-api/active_model_serializers)
--   [`ruby`](https://www.ruby-lang.org/en/)
--   [`postgres`](http://www.postgresql.org)
+1. A user logs in.
+2. The user creates a mood-ring.
+3. The user then adds their mood on a numerical scale of 1-10 (1 being ultimate bad mood, 10 being filled with uncontrollable glee.)
+4. They can then tell their friends, colleagues, strangers at a store in the mall, etc to visit the app and enter the id for that user's mood-ring.
+5. They all add their moods to the ring, and a numerical average is pumped out.
+6. Whoever created the ring can change it's name or delete it.
+7. Anyone can see a list of all of the mood-rings created, or one specific ring.
+8. The user can log out and change their password.
 
-## Installation
+_______
 
-### Download Template:
-1.  [Download](../../archive/master.zip) this template.
-1.  Unzip and rename the template directory (`unzip ~/Downloads/rails-api-template-master.zip`)
-1.  Move into the new project and `git init`.
+<b>Some Thoughts / Planning</b>
 
-### Customize Template:
-1.  Empty [`README.md`](README.md) and fill with your own content.
-1.  Rename your app module in `config/application.rb` (change
-    `RailsApiTemplate`).
-1.  Rename your project database in `config/database.yml` (change
-    `'rails-api-template'`).
+I thought it would be interesting to create an app that focused on the general "vibe" of a group of people. I was curious to see how behavior would change knowing that the mood of a group was low.
+Would people alter their behavior in order to raise the mood of the ring that they were part of? If the general mood of the ring was high, would people be encouraged to help each other stay there?
 
-### Setup Environment:
-1.  Install dependencies with `bundle install`.
-1.  `git add` and `git commit` your changes.
-1.  Create a `.env` for sensitive settings (`touch .env`).
-1.  Generate new `development` and `test` secrets (`bundle exec rails secret`).
-1.  Store them in `.env` with keys `SECRET_KEY_BASE_<DEVELOPMENT|TEST>`
-    respectively.
-1.  In order to make requests to your deployed API, you will need to set
-    `SECRET_KEY_BASE` in the environment of the production API (for example, using `heroku config:set` or the Heroku dashboard).
-1.  In order to make requests from your deployed client application, you will
-    need to set `CLIENT_ORIGIN` in the environment of the production API (for example, `heroku config:set CLIENT_ORIGIN=https://<github-username>.github.io`).
-    See more about deploying to heroku [rails-heroku-setup-guide](https://git.generalassemb.ly/ga-wdi-boston/rails-heroku-setup-guide)
+I imagined it as an interesting thing for a teacher to do before teaching a class, something to use before staff meetings, or as a funny way for friends to commiserate or check in with each other over long distances. There are lots of mood tracker apps, but none that focus on a collective mood that exists during a specific time frame.
 
-### Setup your database:
-    - bin/rails db:drop (if it already exists)
-    - bin/rails db:create
-    - bin/rails db:migrate
-    - bin/rails db:seed
-    - bin/rails db:examples
-
-  Note: Remember to follow the same commands when setting up your deployed database!
-
-### Run your server!
-1. Run the API server with `bin/rails server` or `bundle exec rails server`.
+I also was excited about experimenting with the humor present in using a precise looking number with tons of decimal points being used to represent something as amorphous and abstract as a mood.
 
-## Structure
-
-This template follows the standard project structure in Rails.
+I knew that it would be a challenge to create the back end for this project. I needed to plan my ERD in a way that users could create many mood-rings, be a member of many mood-rings, have different moods in each ring, but only be able to submit one mood per group. With a huge amount of help and research, the resource relationships of the project became more clear. Building the backend of the project was definitely a huge challenge, but it was exciting to see how much functionality can be created in Rails, and I loved seeing how the front end came together with that foundation.
 
-`curl` command scripts are stored in [`curl-scripts`](curl-scripts) with names that
-correspond to API actions.
-
-User authentication is built-in.
-
-## Tasks
-
-Developers should run these often!
-
--   `bin/rails routes` lists the endpoints available in your API.
--   `bin/rspec spec` runs automated tests.
--   `bin/rails console` opens a REPL that pre-loads the API.
--   `bin/rails db` opens your database client and loads the correct database.
--   `bin/rails server` starts the API.
--   `curl-scripts/*.sh` run various `curl` commands to test the API. See below.
-
-## API
-
-Use this as the basis for your own API documentation. Add a new third-level
-heading for your custom entities, and follow the pattern provided for the
-built-in user authentication documentation.
-
-Scripts are included in [`curl-scripts`](curl-scripts) to test built-in actions. Add your
-own scripts to test your custom API. As an alternative, you can write automated
-tests in RSpec to test your API.
-
-### Authentication
-
-| Verb   | URI Pattern            | Controller#Action |
-|--------|------------------------|-------------------|
-| POST   | `/sign-up`             | `users#signup`    |
-| POST   | `/sign-in`             | `users#signin`    |
-| PATCH  | `/change-password`     | `users#changepw`  |
-| DELETE | `/sign-out`        | `users#signout`   |
-
-#### POST /sign-up
-
-Request:
-
-```sh
-curl http://localhost:4741/sign-up \
-  --include \
-  --request POST \
-  --header "Content-Type: application/json" \
-  --data '{
-    "credentials": {
-      "email": "'"${EMAIL}"'",
-      "password": "'"${PASSWORD}"'",
-      "password_confirmation": "'"${PASSWORD}"'"
-    }
-  }'
-```
-
-```sh
-EMAIL=ava@bob.com PASSWORD=hannah curl-scripts/auth/sign-up.sh
-```
-
-Response:
-
-```md
-HTTP/1.1 201 Created
-Content-Type: application/json; charset=utf-8
-
-{
-  "user": {
-    "id": 1,
-    "email": "ava@bob.com"
-  }
-}
-```
-
-#### POST /sign-in
-
-Request:
-
-```sh
-curl http://localhost:4741/sign-in \
-  --include \
-  --request POST \
-  --header "Content-Type: application/json" \
-  --data '{
-    "credentials": {
-      "email": "'"${EMAIL}"'",
-      "password": "'"${PASSWORD}"'"
-    }
-  }'
-```
-
-```sh
-EMAIL=ava@bob.com PASSWORD=hannah curl-scripts/auth/sign-in.sh
-```
-
-Response:
-
-```md
-HTTP/1.1 200 OK
-Content-Type: application/json; charset=utf-8
-
-{
-  "user": {
-    "id": 1,
-    "email": "ava@bob.com",
-    "token": "BAhJIiVlZDIwZTMzMzQzODg5NTBmYjZlNjRlZDZlNzYxYzU2ZAY6BkVG--7e7f77f974edcf5e4887b56918f34cd9fe293b9f"
-  }
-}
-```
-
-#### PATCH /change-password
-
-Request:
-
-```sh
-curl --include --request PATCH "http://localhost:4741/change-password" \
-  --header "Authorization: Token token=$TOKEN" \
-  --header "Content-Type: application/json" \
-  --data '{
-    "passwords": {
-      "old": "'"${OLDPW}"'",
-      "new": "'"${NEWPW}"'"
-    }
-  }'
-```
-
-```sh
-OLDPW='hannah' NEWPW='elle' TOKEN='BAhJIiVlZDIwZTMzMzQzODg5NTBmYjZlNjRlZDZlNzYxYzU2ZAY6BkVG--7e7f77f974edcf5e4887b56918f34cd9fe293b9f' sh curl-scripts/auth/change-password.sh
-```
-
-Response:
-
-```md
-HTTP/1.1 204 No Content
-```
-
-#### DELETE /sign-out
-
-Request:
-
-```sh
-curl http://localhost:4741/sign-out \
-  --include \
-  --request DELETE \
-  --header "Authorization: Token token=$TOKEN"
-```
-
-```sh
-TOKEN='BAhJIiVlZDIwZTMzMzQzODg5NTBmYjZlNjRlZDZlNzYxYzU2ZAY6BkVG--7e7f77f974edcf5e4887b56918f34cd9fe293b9f' sh curl-scripts/auth/sign-out.sh
-```
-
-Response:
-
-```md
-HTTP/1.1 204 No Content
-```
-
-### Users
-
-| Verb | URI Pattern | Controller#Action |
-|------|-------------|-------------------|
-| GET  | `/users`    | `users#index`     |
-| GET  | `/users/1`  | `users#show`      |
-| PATCH| `/users/1`  | `users#update`    |
-
-#### GET /users
-
-Request:
-
-```sh
-curl http://localhost:4741/users \
-  --include \
-  --request GET \
-  --header "Authorization: Token token=$TOKEN"
-```
-
-```sh
-TOKEN=BAhJIiVlZDIwZTMzMzQzODg5NTBmYjZlNjRlZDZlNzYxYzU2ZAY6BkVG--7e7f77f974edcf5e4887b56918f34cd9fe293b9f curl-scripts/users.sh
-```
-
-Response:
-
-```md
-HTTP/1.1 200 OK
-Content-Type: application/json; charset=utf-8
-
-{
-  "users": [
-    {
-      "id": 2,
-      "email": "bob@ava.com"
-    },
-    {
-      "id": 1,
-      "email": "ava@bob.com"
-    }
-  ]
-}
-```
-
-#### GET /users/:id
-
-Request:
-
-```sh
-curl --include --request GET http://localhost:4741/users/$ID \
-  --header "Authorization: Token token=$TOKEN"
-```
-
-```sh
-ID=2 TOKEN=BAhJIiVlZDIwZTMzMzQzODg5NTBmYjZlNjRlZDZlNzYxYzU2ZAY6BkVG--7e7f77f974edcf5e4887b56918f34cd9fe293b9f curl-scripts/user.sh
-```
-
-Response:
-
-```md
-HTTP/1.1 200 OK
-Content-Type: application/json; charset=utf-8
-
-{
-  "user": {
-    "id": 2,
-    "email": "bob@ava.com"
-  }
-}
-```
-
-#### PATCH /users/:id
-
-Request:
-
-```sh
-curl "http://localhost:4741/users/${ID}" \
-  --include \
-  --request PATCH \
-  --header "Authorization: Token token=${TOKEN}" \
-  --header "Content-Type: application/json" \
-  --data '{
-    "user": {
-      "email": "'"${EMAIL}"'"
-    }
-  }'
-```
-
-```sh
-ID=1 TOKEN="BAhJIiU1NGNlYjRmMjBhM2NkZTZiNzk1MGNiYmZiYWMyY2U4MwY6BkVG--ddb1e16af0e05921aa56d771e4a2f816f2a1d46e"
-EMAIL=mike@m
-sh curl-scripts/users/user-update.sh
-```
-
-Response:
-
-```md
-HTTP/1.1 200 OK
-Content-Type: application/json; charset=utf-8
-
-{"user":{"id":1,"email":"mike@m"}}
-```
-
-### Reset Database without dropping
-
-This is not a task developers should run often, but it is sometimes necessary.
-
-**locally**
-
-```sh
-bin/rails db:migrate VERSION=0
-bin/rails db:migrate db:seed db:examples
-```
-
-**heroku**
-
-```sh
-heroku run rails db:migrate VERSION=0
-heroku run rails db:migrate db:seed db:examples
-```
-
-## Additional Resources
-- [rails-heroku-setup-guide](https://git.generalassemb.ly/ga-wdi-boston/rails-heroku-setup-guide)
-- http://guides.rubyonrails.org/api_app.html
-- https://blog.codeship.com/building-a-json-api-with-rails-5/
-
-## [License](LICENSE)
-
-1.  All content is licensed under a CC­BY­NC­SA 4.0 license.
-1.  All software code is licensed under GNU GPLv3. For commercial use or
-    alternative licensing, please contact legal@ga.co.
+Once I had my backend (relatively) solidified, I ran into many issues regarding update and delete functionality. I circumvented this issue by adding an "owner" column to my groups table. This way, the owner of the group does not have to be logged in to the group they are trying to modify or delete. Navigating through these issues was highly confusing, but now I want to do more of it.
+
+**user**
+
+  has_many :user_groups
+  has_many :groups, through: :user_groups
+  has_many :moods, through: :user_groups
+
+
+
+**group**
+
+  has_many :user_groups, dependent: :destroy
+  has_many :users, through: :user_groups
+  has_many :moods, through: :user_groups
+
+
+
+**user group**
+
+  belongs_to :user
+  belongs_to :group
+  belongs_to :mood
+
+
+
+**mood**
+
+  has_many :groups, through: :user_groups
+  has_many :user_groups
+
+_______
+
+
+<b>Routes</b>
+
+<b>User Authentication</b>
+- Sign up
+  config.apiUrl + '/sign-up',
+  method: 'POST'
+
+- Sign in
+  config.apiUrl + '/sign-in',
+  method: 'POST'
+
+- Change password
+  url: config.apiUrl + '/change-password',
+  method: 'PATCH'
+
+- Sign out
+  url: config.apiUrl + '/sign-out',
+  method: 'DELETE',
+
+<b>Groups</b>
+-Create ring
+  url: config.apiUrl + '/groups',
+  user_id: store.user.id,
+  method: 'POST'
+
+-Update name of mood-ring
+  url: config.apiUrl + /groups/${groupObject.group.id},
+  method: 'PATCH',
+  data: groupObject
+
+-Delete mood-ring
+  url: config.apiUrl + /groups/${data.group.id},
+  method: 'DELETE'
+
+-Show one ring
+  url: config.apiUrl + /groups/${oneObject.group.id},
+  method: 'GET'
+
+-Index all mood-rings
+  url: config.apiUrl + '/groups',
+  method: 'GET'
+
+<b>Moods</b>
+-Create mood
+  url: config.apiUrl + '/moods',
+  method: 'POST',
+
+<b>User Groups(Instance of user membership in a group)
+-Create User Group
+  url: config.apiUrl + '/user_groups',
+  method: 'POST'
+
+_______
+
+
+<b>ERD</b>
+<img src="/public/erd.jpg">
+
+_______
+
+<b>Future Goals</b>
+
+1. I'd love to have a way for someone who creates a mood-ring to send a mood-ring invitation for a specific ring. I feel like entering the group ID is a little bit clunky.
+2. Really excited about doing more styling on this. I want to make the color gradient of the mood-ring banner responsive to the average mood of the ring.
+3. I like the idea of a user only being able to submit one mood per group, because then the ring represents a finite moment in time, but am considering the idea of letting a user submit a new mood after an hour, or something like that.
+4. Add more specific user messages / alerts
+5. Maybe it can be an app one day.
+
+_______
+
+<b>Technologies used</b>
+
+<b>Front end</b> - HTML, SCSS, Javascript, jQuery
+<b>Back end</b> - Ruby, Ruby on Rails
+
+_______
