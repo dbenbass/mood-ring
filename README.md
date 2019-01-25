@@ -49,7 +49,9 @@ Once I had my backend (relatively) solidified, I ran into many issues regarding 
 <br>
   has_many :user_groups, dependent: :destroy<br>
   has_many :users, through: :user_groups<br>
-  has_many :moods, through: :user_groups<br><br>
+  has_many :moods, through: :user_groups<br>
+  belongs_to :owner, class_name: 'User', foreign_key: 'owner_id'
+<br><br>
 
 
 
