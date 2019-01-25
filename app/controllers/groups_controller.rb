@@ -17,8 +17,9 @@ class GroupsController < ProtectedController
 
   # POST /groups
   def create
-    @group = current_user.groups.build(group_params)
-
+    # @group = current_user.owned_groups.build(group_params)
+    @group = Group.new(group_params)
+    @group.owner_id = current_user.id
     if @group.save
       render json: @group, status: :created, location: @group
     else
@@ -43,7 +44,7 @@ class GroupsController < ProtectedController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_group
-      @group = current_user.groups.find(params[:id])
+      @group = current_user.owned_groups.find(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.
