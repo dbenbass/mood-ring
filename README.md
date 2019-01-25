@@ -89,42 +89,42 @@ _______
   method: 'DELETE'<br><br>
 
 <b>Groups</b><br>
--Create ring<br>
+- Create ring<br>
   url: config.apiUrl + '/groups',<br>
   user_id: store.user.id,<br>
   method: 'POST'<br><br>
 
--Update name of mood-ring<br>
+- Update name of mood-ring<br>
   url: config.apiUrl + /groups/${groupObject.group.id},<br>
   method: 'PATCH',<br>
   data: groupObject<br><br>
 
--Delete mood-ring<br>
+- Delete mood-ring<br>
   url: config.apiUrl + /groups/${data.group.id},<br>
   method: 'DELETE'<br><br>
 
--Show one ring<br>
+- Show one ring<br>
   url: config.apiUrl + /groups/${oneObject.group.id},<br>
   method: 'GET'<br><br>
 
--Index all mood-rings<br>
+- Index all mood-rings<br>
   url: config.apiUrl + '/groups',<br>
   method: 'GET'<br><br>
 
 <b>Moods</b><br>
--Create mood<br>
+- Create mood<br>
   url: config.apiUrl + '/moods',<br>
   method: 'POST',<br><br>
 
-<b>User Groups(Instance of user membership in a group)<br>
--Create User Group<br>
+<b>User Groups(Instance of user membership in a group)</b><br>
+- Create User Group<br>
   url: config.apiUrl + '/user_groups',<br>
   method: 'POST'<br><br>
 
 _______
 
 
-<b>ERD</b>
+<b>ERD</b><br>
 <img src="/public/erd.jpg">
 
 _______
