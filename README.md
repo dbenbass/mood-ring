@@ -37,16 +37,16 @@ I knew that it would be a challenge to create the back end for this project. I n
 
 Once I had my backend (relatively) solidified, I ran into many issues regarding update and delete functionality. I circumvented this issue by adding an "owner" column to my groups table. This way, the owner of the group does not have to be logged in to the group they are trying to modify or delete. Navigating through these issues was highly confusing, but now I want to do more of it.
 
-**user**
-
+<b>user</b>
+<br>
   has_many :user_groups
   has_many :groups, through: :user_groups
   has_many :moods, through: :user_groups
+<br><br>
 
 
-
-**group**
-
+<b>group</b>
+<br>
   has_many :user_groups, dependent: :destroy
   has_many :users, through: :user_groups
   has_many :moods, through: :user_groups
@@ -72,54 +72,54 @@ _______
 <b>Routes</b>
 
 <b>User Authentication</b>
-- Sign up
-  config.apiUrl + '/sign-up',
-  method: 'POST'
+- Sign up <br>
+  config.apiUrl + '/sign-up',<br>
+  method: 'POST'<br><br>
 
-- Sign in
-  config.apiUrl + '/sign-in',
-  method: 'POST'
+- Sign in<br>
+  config.apiUrl + '/sign-in',<br>
+  method: 'POST'<br><br>
 
-- Change password
-  url: config.apiUrl + '/change-password',
-  method: 'PATCH'
+- Change password<br>
+  url: config.apiUrl + '/change-password',<br>
+  method: 'PATCH'<br><br>
 
-- Sign out
-  url: config.apiUrl + '/sign-out',
-  method: 'DELETE',
+- Sign out<br>
+  url: config.apiUrl + '/sign-out',<br>
+  method: 'DELETE'<br><br>
 
-<b>Groups</b>
--Create ring
-  url: config.apiUrl + '/groups',
-  user_id: store.user.id,
-  method: 'POST'
+<b>Groups</b><br>
+-Create ring<br>
+  url: config.apiUrl + '/groups',<br>
+  user_id: store.user.id,<br>
+  method: 'POST'<br><br>
 
--Update name of mood-ring
-  url: config.apiUrl + /groups/${groupObject.group.id},
-  method: 'PATCH',
-  data: groupObject
+-Update name of mood-ring<br>
+  url: config.apiUrl + /groups/${groupObject.group.id},<br>
+  method: 'PATCH',<br>
+  data: groupObject<br><br>
 
--Delete mood-ring
-  url: config.apiUrl + /groups/${data.group.id},
-  method: 'DELETE'
+-Delete mood-ring<br>
+  url: config.apiUrl + /groups/${data.group.id},<br>
+  method: 'DELETE'<br><br>
 
--Show one ring
-  url: config.apiUrl + /groups/${oneObject.group.id},
-  method: 'GET'
+-Show one ring<br>
+  url: config.apiUrl + /groups/${oneObject.group.id},<br>
+  method: 'GET'<br><br>
 
--Index all mood-rings
-  url: config.apiUrl + '/groups',
-  method: 'GET'
+-Index all mood-rings<br>
+  url: config.apiUrl + '/groups',<br>
+  method: 'GET'<br><br>
 
-<b>Moods</b>
--Create mood
-  url: config.apiUrl + '/moods',
-  method: 'POST',
+<b>Moods</b><br>
+-Create mood<br>
+  url: config.apiUrl + '/moods',<br>
+  method: 'POST',<br><br>
 
-<b>User Groups(Instance of user membership in a group)
--Create User Group
-  url: config.apiUrl + '/user_groups',
-  method: 'POST'
+<b>User Groups(Instance of user membership in a group)<br>
+-Create User Group<br>
+  url: config.apiUrl + '/user_groups',<br>
+  method: 'POST'<br><br>
 
 _______
 
