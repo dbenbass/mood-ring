@@ -125,7 +125,8 @@ _______
 
 
 <b>ERD</b><br>
-<img src="/public/erd.jpg">
+
+<img src="/public/erd-moodring.jpg">
 
 _______
 
