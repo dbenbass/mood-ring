@@ -3,7 +3,11 @@ class GroupsController < ProtectedController
 
   # GET /groups
   def index
-    @groups = Group.all
+    if params[:owner_ring]
+      @groups = Group.where(owner_id: current_user.id)
+    else
+      @groups = Group.all
+    end
 
     render json: @groups
   end
